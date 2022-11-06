@@ -40,6 +40,8 @@ class DigiComViewDownload extends JViewLegacy
 
 		$customer = new DigiComSiteHelperSession();
 
+		$item 	= $app->getMenu()->getItems('link', 'index.php?option=com_digicom&view=orders', true);
+
 		$this->item		= $this->get('Item');
 		$this->configs = JComponentHelper::getComponent('com_digicom')->params;
 		$this->state	= $this->get('State');

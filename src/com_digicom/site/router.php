@@ -47,7 +47,9 @@ class DigiComRouter extends JComponentRouterBase
 			// We need to have a view in the query or it is an invalid URL
 			return $segments;
 		}
-		//print_r($query);die;
+		// print_r($query);die;
+
+		
 
 		// Get a menu item based on Itemid or currently active
 		$params = JComponentHelper::getParams('com_digicom');
@@ -169,11 +171,16 @@ class DigiComRouter extends JComponentRouterBase
 		}
 		elseif ($view == 'dashboard' or $view == 'downloads' or $view == 'download' or $view == 'profile' or $view == 'login' or $view == 'register' or $view == 'billing' or $view == 'thankyou')
 		{
+			
+			
 			// now check if its downloads details view
 			if($view == 'download' or $view == 'downloads'){
 				// check for downloads menu
 				$menuItem = $menu->getItems('link', 'index.php?option=com_digicom&view=downloads', true);
 				
+				// var_dump($menu);
+				// die;
+
 				if(!is_null($menuItem)) {
 					$query['Itemid'] = $menuItem->id;
 					$menuItemGiven = true;
@@ -492,8 +499,12 @@ class DigiComRouter extends JComponentRouterBase
 			$segments[$i] = preg_replace('/-/', ':', $segments[$i], 1);
 		}
 
+
+
 		// Get the active menu item.
 		$item = $menu->getActive();
+
+		
 		if(!$item){
 			$item = $menu->getDefault();
 		}
@@ -558,8 +569,11 @@ class DigiComRouter extends JComponentRouterBase
 				break;
 			case "orders":
 			case "order":
-				//print_r($segments);die;//checkout
+				// print_r($segments);die;//checkout
 				$vars['view'] = $item->query['view'];
+
+				
+				
 				if(isset($segments[0]) && !is_numeric($segments[0]) && $segments[0] == 'invoice'){
 					$vars['view'] = 'order';
 					$vars['layout'] = $segments[0];
@@ -571,7 +585,7 @@ class DigiComRouter extends JComponentRouterBase
 					$vars['view'] = 'order';
 					$vars['id'] = $segments[0];
 				}
-				//print_r($vars);die;
+				// print_r($vars);die;
 				return $vars;
 				break;
 			case "cart":
@@ -579,9 +593,9 @@ class DigiComRouter extends JComponentRouterBase
 				$vars['view'] = $item->query['view'];
 				//print_r($vars);die;
 
-//				if(isset($segments[0])){
-//					$vars['layout'] = $segments[0];
-//				}
+				//if(isset($segments[0])){
+				//$vars['layout'] = $segments[0];
+				//}
 
 				if(isset($segments[0]) && $segments[0] !='cart_popup' && $segments[0] !='summary'){
 					$vars['view'] = $segments[0];
@@ -737,14 +751,14 @@ class DigiComRouter extends JComponentRouterBase
 
 				$vars['id'] = $cid;
 
-//				if ($item->query['view'] == 'archive' && $count != 1)
-//				{
-//					$vars['year'] = $count >= 2 ? $segments[$count - 2] : null;
-//					$vars['month'] = $segments[$count - 1];
-//					$vars['view'] = 'archive';
-//				}
-//				else
-//				{
+				//				if ($item->query['view'] == 'archive' && $count != 1)
+				//				{
+				//					$vars['year'] = $count >= 2 ? $segments[$count - 2] : null;
+				//					$vars['month'] = $segments[$count - 1];
+				//					$vars['view'] = 'archive';
+				//				}
+				//				else
+				//				{
 					$vars['view'] = 'product';
 				//}
 			}
@@ -791,6 +805,8 @@ function digicomBuildRoute(&$query)
 function digicomParseRoute($segments)
 {
 	$router = new DigiComRouter;
+
+	
 
 	return $router->parse($segments);
 }

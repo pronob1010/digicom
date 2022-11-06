@@ -163,9 +163,11 @@ $n 					= count ($this->order->products);
 	</table>
 
 
-	<a href="<?php echo JRoute::_("index.php?option=com_digicom&view=downloads"); ?>" class="btn btn-success">
-		<i class="glyphicon glyphicon-out"></i><?php echo JText::_('COM_DIGICOM_GO_DOWNLOAD'); ?>
-	</a>
+    <?php if ( strtolower($order->status) === 'active') : ?>
+		<a href="<?php echo JRoute::_("index.php?option=com_digicom&view=downloads&id=".$order->id.""); ?>" class="btn btn-success">
+			<i class="glyphicon glyphicon-out"></i><?php echo JText::_('COM_DIGICOM_GO_DOWNLOAD'); ?>
+		</a>
+	<?php endif; ?>
 
 	<a class="btn btn-info" target="_blank" href="<?php echo JRoute::_("index.php?option=com_digicom&view=order&layout=invoice&id=".$order->id."&tmpl=component"); ?>">
 		<i class="glyphicon glyphicon-printer"></i> <?php echo JText::_('COM_DIGICOM_ORDER_PRINT'); ?>
